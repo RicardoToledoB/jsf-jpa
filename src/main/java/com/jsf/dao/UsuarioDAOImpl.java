@@ -1,6 +1,7 @@
 package com.jsf.dao;
 
 import com.jsf.model.Usuario;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,7 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
-public class UsuarioDAOImpl implements UsuarioDAO {
+public class UsuarioDAOImpl implements UsuarioDAO ,Serializable{
      EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
     @Transactional 
     public void save(Usuario u) {
