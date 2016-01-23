@@ -3,64 +3,164 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>BootsFaces CRUD JSF</title>
+        <style>
+            .navbar-brand span {
+                color: #fff;
+            }
+            #header {
+                background-color: rgb(51, 122, 183) !important;
+                border-bottom: 1px solid rgb(51, 122, 183) !important;
+            }
+            .navbar a {
+                color: rgba(255,255,255,.7) !important;
+            }
+            navbar a:hover {
+                color: #fff;
+            }
+            .navbar li.active > a{
+                background-color: #2B4662 !important;
+                color: #fff !important;
+            }
+            .dropdown-menu li a { color: #333 !important; }
+            .navbar .dropdown.open > a{
+                background-color: #2B4662 !important;
+            }
+            #footer {
+                color:rgb(119, 119, 119) !important;
+            }
+            .ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+                border-style: none;
+            }
+            .table { border: 1px solid #ddd; }
+            .ui-datatable tbody td:not(:last-of-type) {
+                border-right: 1px solid #ddd;
+            }
+            .ui-datatable thead th:not(:last-of-type) {
+                border-right: 1px solid #ddd;
+            }
+        </style>
     </h:head>
     <h:body  style="padding: 60px;">
         <br/>
         Volver
         <br/>
         <br/>
-        <b:navBar brand="CRUD JSF" brandHref="#" fixed="top" inverse="true">
+        <b:navBar brand="CRUD JSF" id="header" brandHref="#" fixed="top" inverse="true">
             <b:navbarLinks>
-                <b:navLink value="Usuario" href="#" active="true"></b:navLink>
-                <b:navLink value="Ciudad" href="#"></b:navLink>
-               
+                <b:navLink value="Home" iconAwesome="home" href="../home.xhtml"></b:navLink>
+                <b:navLink value="Usuario" active="true"></b:navLink>
+                <b:navLink value="Rol" href="../rol/list.xhtml" ></b:navLink>
+                <b:navLink value="Pais" href="../pais/list.xhtml"></b:navLink>
+                <b:navLink value="Ciudad" href="../ciudad/list.xhtml"></b:navLink>
+                <b:dropMenu value="Welcome Usuario" class="align-right">
+                    <b:navLink value="Cambiar Clave" href="#"></b:navLink>
+
+                    <b:navLink></b:navLink>
+
+                    <b:navLink value="Cerrar Sesion" href="#"></b:navLink>
+                </b:dropMenu>
             </b:navbarLinks>
         </b:navBar>
-        <b:container fluid="true">
-            <b:row>
-                <h:form>
-                    <b:commandButton value="Nuevo Usuario" look="primary" action="add.xhtml?faces-redirect=true" />
-                </h:form>
 
-            </b:row>
+        <b:container fluid="true">
+              <b:row>
+                    <h:form>
+                        <b:commandButton value="Nuevo Usuario" look="primary" action="add.xhtml?faces-redirect=true" />
+                    </h:form>
+                    
+                     </b:row>
             <br/>
             <b:row >
 
 
-                <b:panel title="Nuevo Usuario" look="default" collapsed="false">
-                    <b:dataTable value="#{usuarioBean.listUsers}" var="usuarios">
-                        <h:column>    				
-                            <f:facet name="header">ID</f:facet>    				
-                                #{usuarios.id}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">NOMBRE</f:facet>
-                                #{usuarios.nombre}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">1er APELLIDO</f:facet>
-                                #{usuarios.apepat}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">2do APELLIDO</f:facet>
-                                #{usuarios.apemat}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Eliminar</f:facet>
+                <b:panel title="Listado Usuarios" look="default" collapsed="false" collapsible="false">
+                    
+                    <p:dataTable value="#{usuarioBean.listUsers}" tableStyleClass="table table-striped"   var="usuarios" paginator="true" reflow="true" rows="5" paginatorPosition="bottom" >
+                        <p:column headerText="ID" width="30">
+                            <h:outputText value="#{usuarios.id}" />
+                        </p:column>
+
+                        <p:column headerText="NOMBRE">
+                            <h:outputText value="#{usuarios.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="1 APELLIDO">
+                            <h:outputText value="#{usuarios.apepat}" />
+                        </p:column>
+
+                        <p:column headerText="2 APELLIDO">
+                            <h:outputText value="#{usuarios.apemat}" />
+                        </p:column>
+                        <p:column headerText="ESTADO">
+                            <h:outputText value="#{usuarios.estado}" />
+                        </p:column>
+                        <p:column width="140">
+                            <f:facet name="header">ACCIONES</f:facet>
                             <h:form>
-                                <h:commandLink value="Delete" action="#{usuarioBean.delete(usuarios)}" /> /
-                                <h:commandLink value="Edit" action="#{usuarioBean.setSelectedUser(usuarios)}"  />
+
+                                <b:commandButton value="" size="mini" iconAwesome="trash-o" look="danger"  action="#{usuarioBean.delete(usuarios)}" /> 
+                                <b:commandButton value="" iconAwesome="edit" look="primary"  action="#{usuarioBean.setEditUser(usuarios)}"  /> 
+                                <b:commandButton value="" iconAwesome="eye" look="success"  action="#{usuarioBean.setViewUser(usuarios)}"  />
                             </h:form>
 
-                        </h:column>
-                    </b:dataTable>
+                        </p:column>
+                        <!-- <h:column>    				
+                             <f:facet name="header">ID</f:facet>    				
+                        #{usuarios.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">NOMBRE</f:facet>
+                        #{usuarios.nombre}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">1er APELLIDO</f:facet>
+                        #{usuarios.apepat}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">2do APELLIDO</f:facet>
+                        #{usuarios.apemat}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">ESTADO</f:facet>
+                        #{usuarios.estado}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Eliminar</f:facet>
+                    <h:form>
+                        
+                        <b:commandButton value="" size="mini" iconAwesome="trash-o" look="danger"  action="#{usuarioBean.delete(usuarios)}" /> |
+                        <b:commandButton value="" iconAwesome="edit" look="primary"  action="#{usuarioBean.setEditUser(usuarios)}"  /> |
+                        <b:commandButton value="" iconAwesome="eye" look="success"  action="#{usuarioBean.setViewUser(usuarios)}"  />
+                    </h:form>
+
+                </h:column>-->
+                    </p:dataTable>
                 </b:panel>
 
 
             </b:row>
         </b:container>
+        <div id="j_idt151" class="null navbar navbar-default navbar-fixed-bottom" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#j_idt151_inner">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><span id="footer">©2016 Ricardo Toledo Barria</span>
+                    </a></div>
+                <div id="j_idt151_inner" class="collapse navbar-collapse navbar-ex1-collapse">
+                    <p class="navbar-text pull-right">
+                        Crud bootfaces, jsf y jpa
+                    </p>
+                </div>
+            </div>
+        </div>
     </h:body>
 </html>

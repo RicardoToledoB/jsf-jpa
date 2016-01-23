@@ -3,6 +3,9 @@
   <persistence-unit name="persistence" transaction-type="JTA">
     <jta-data-source>java:app/jsf</jta-data-source>
     <class>com.jsf.model.Usuario</class>
+    <class>com.jsf.model.Ciudad</class>
+    <class>com.jsf.model.Rol</class>
+    <class>com.jsf.model.Pais</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

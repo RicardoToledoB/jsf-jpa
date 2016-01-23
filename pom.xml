@@ -56,7 +56,13 @@
             <version>0.8.0</version>
             <scope>compile</scope>
         </dependency>
-         <!-- MYSQL DEPENDENCIA -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>5.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- MYSQL DEPENDENCIA -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

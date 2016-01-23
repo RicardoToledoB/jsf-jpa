@@ -6,7 +6,7 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>BootsFaces CRUD JSF</title>
-        <style>
+         <style>
             .navbar-brand span {
                 color: #fff;
             }
@@ -28,26 +28,25 @@
             .navbar .dropdown.open > a{
                 background-color: #2B4662 !important;
             }
-            
-            #footer {
+             #footer {
                 color:rgb(119, 119, 119) !important;
             }
-
         </style>
     </h:head>
     <h:body  style="padding: 60px;">
-        <b:navBar brand="CRUD JSF" id="header" brandHref="#" fixed="top" inverse="true" >
-            <b:navbarLinks >
-                <b:navLink value="Home" iconAwesome="home" href="" active="true"></b:navLink>
-                <b:navLink value="Usuario" href="usuario/list.xhtml" ></b:navLink>
-                <b:navLink value="Rol" href="rol/list.xhtml"></b:navLink>
+        <br/>
+        <a href="list.xhtml">Volver</a>
+        <br/>
+        <br/>
+        <b:navBar brand="CRUD JSF" id="header" brandHref="#" fixed="top" inverse="true">
+            <b:navbarLinks>
+                <b:navLink value="Home" iconAwesome="home" href="../home.xhtml"></b:navLink>
+                <b:navLink value="Usuario" href="../usuario/list.xhtml" ></b:navLink>
+                <b:navLink value="Rol" href="../rol/list.xhtml"></b:navLink>
                 <b:navLink value="Pais" href="../pais/list.xhtml"></b:navLink>
-                <b:navLink value="Ciudad" href="ciudad/list.xhtml" ></b:navLink>
-                
-
-                
-                <b:dropMenu value="Welcome Usuario" class="align-right" >
-                    <b:navLink value="Cambiar Clave" href="#" ></b:navLink>
+                <b:navLink value="Ciudad" href="#" active="true"></b:navLink>
+                <b:dropMenu value="Welcome Usuario" class="align-right">
+                    <b:navLink value="Cambiar Clave" href="#"></b:navLink>
 
                     <b:navLink></b:navLink>
 
@@ -55,17 +54,28 @@
                 </b:dropMenu>
             </b:navbarLinks>
         </b:navBar>
-        <b:container>
-
-            MODULOS DE ADMINSITRADOR<br/>
-
-            <br/>
-
-            <a href="usuario/list.xhtml">Modulo Usuario</a><br/>
-            <a href="rol/list.xhtml">Modulo Rol</a><br/>
-            <a href="pais/list.xhtml">Modulo Pais</a><br/>
-            <a href="ciudad/list.xhtml">Modulo Ciudades</a>
-
+        <b:container fluid="true">
+            <b:row >
+                <b:panel title="Editar Ciudad" look="default" collapsed="false">
+                    <h:form>
+                        <h:outputLabel value="Nombre"/>
+                        <b:inputText placeholder="Nombre" value="#{ciudadBean.editCiudad.nombre}"/>
+                        
+                        <h:outputLabel value="Pais"/>
+                        <b:selectOneMenu value="#{ciudadBean.editCiudad.pais.id}" id="pais">
+                            <f:selectItems value="#{paisBean.listPaises}" var="pais" itemValue="#{pais.id}"
+                                           itemLabel="#{pais.nombre}" />
+                        </b:selectOneMenu>
+                        
+                        <h:outputLabel value="Estado"/>
+                        <b:inputText placeholder="Estado" value="#{ciudadBean.editCiudad.estado}"/> 
+                         <h:panelGrid columns="2" cellpadding="10">
+                            <b:commandButton value="Guardar" look="primary" actionListener="#{ciudadBean.edit(ciudadBean.editCiudad)}"/>
+                            <b:commandButton value="Cancelar" look="danger" actionListener="#"/>
+                        </h:panelGrid>
+                    </h:form>
+                </b:panel>
+            </b:row>
         </b:container>
         <div id="j_idt151" class="null navbar navbar-default navbar-fixed-bottom" role="navigation">
             <div class="container">

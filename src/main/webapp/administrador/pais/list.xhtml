@@ -35,15 +35,15 @@
     </h:head>
     <h:body  style="padding: 60px;">
         <br/>
-        <a href="list.xhtml">Volver</a>
+        Volver
         <br/>
         <br/>
         <b:navBar brand="CRUD JSF" id="header" brandHref="#" fixed="top" inverse="true">
-            <b:navbarLinks >
+            <b:navbarLinks>
                 <b:navLink value="Home" iconAwesome="home" href="../home.xhtml"></b:navLink>
-                <b:navLink value="Usuario" active="true"></b:navLink>
-                <b:navLink value="Rol" href="../rol/list.xhtml" ></b:navLink>
-                <b:navLink value="Pais" href="../pais/list.xhtml"></b:navLink>
+                <b:navLink value="Usuario" href="../usuario/list.xhtml" ></b:navLink>
+                <b:navLink value="Rol" href="../rol/list.xhtml"></b:navLink>
+                <b:navLink value="Pais" href="../pais/list.xhtml" active="true"></b:navLink>
                 <b:navLink value="Ciudad" href="../ciudad/list.xhtml"></b:navLink>
                 <b:dropMenu value="Welcome Usuario" class="align-right">
                     <b:navLink value="Cambiar Clave" href="#"></b:navLink>
@@ -52,35 +52,46 @@
 
                     <b:navLink value="Cerrar Sesion" href="#"></b:navLink>
                 </b:dropMenu>
-            </b:navbarLinks >
+            </b:navbarLinks>
         </b:navBar>
-        
         <b:container fluid="true">
+            <b:row>
+                <h:form>
+                    <b:commandButton value="Nuevo Pais" look="primary" action="add.xhtml?faces-redirect=true" />
+                </h:form>
+
+            </b:row>
+            <br/>
             <b:row >
-                <b:panel title="Detalle Usuario" look="default" collapsed="false">
-                    <h:form>
-                        <b:well>
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputLabel value="Nombre:" />
-                                <b:label text="#{usuarioBean.viewUser.nombre}"  severity="success" />
-                                <h:outputLabel value="1er Apellido:" />
-                                <b:label text="#{usuarioBean.viewUser.apepat}" severity="success" />
-                                <h:outputLabel value="2do Apellido:"/>
-                                <b:label text="#{usuarioBean.viewUser.apemat}" severity="success" />
-                                <h:outputLabel value="Username:"/>
-                                <b:label text="#{usuarioBean.viewUser.username}" severity="success" />
-                                <h:outputLabel value="Password:"/>
-                                <b:label text="#{usuarioBean.viewUser.password}" severity="success" />
-                                <h:outputLabel value="Ciudad:"/>
-                                <b:label text="#{usuarioBean.viewUser.ciudad.nombre}" severity="success" />
-                                <h:outputLabel value="Rol:"/>
-                                <b:label text="#{usuarioBean.viewUser.rol.nombre}" severity="success" />
-                                <h:outputLabel value="Estado:"/>
-                                <b:label text="#{usuarioBean.viewUser.estado}" severity="success" />
-                            </h:panelGrid>
-                        </b:well>
-                    </h:form>
+                <b:panel title="Nuevo Pais" look="default" collapsed="false">
+                    <b:dataTable value="#{paisBean.listPaises}" var="paises">
+                        <h:column>    				
+                            <f:facet name="header">ID</f:facet>    				
+                                #{paises.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">NOMBRE</f:facet>
+                                #{paises.nombre}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">ESTADO</f:facet>
+                                #{paises.estado}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">ACCIONES</f:facet>
+                            <h:form>
+
+                                <b:commandButton value="" size="mini" iconAwesome="trash-o" look="danger"  action="#{paisBean.delete(paises)}" /> |
+                                <b:commandButton value="" iconAwesome="edit" look="primary"  action="#{paisBean.setEditPais(paises)}"  /> |
+                                <b:commandButton value="" iconAwesome="eye" look="success"  action="#{paisBean.setViewPais(paises)}"  />
+                            </h:form>
+
+                        </h:column>
+                    </b:dataTable>
                 </b:panel>
+
+
             </b:row>
         </b:container>
         <div id="j_idt151" class="null navbar navbar-default navbar-fixed-bottom" role="navigation">

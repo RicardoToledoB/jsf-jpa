@@ -6,36 +6,115 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>BootsFaces CRUD JSF</title>
+         <style>
+            .navbar-brand span {
+                color: #fff;
+            }
+            #header {
+                background-color: rgb(51, 122, 183) !important;
+                border-bottom: 1px solid rgb(51, 122, 183) !important;
+            }
+            .navbar a {
+                color: rgba(255,255,255,.7) !important;
+            }
+            navbar a:hover {
+                color: #fff;
+            }
+            .navbar li.active > a{
+                background-color: #2B4662 !important;
+                color: #fff !important;
+            }
+            .dropdown-menu li a { color: #333 !important; }
+            .navbar .dropdown.open > a{
+                background-color: #2B4662 !important;
+            }
+             #footer {
+                color:rgb(119, 119, 119) !important;
+            }
+        </style>
     </h:head>
     <h:body  style="padding: 60px;">
         <br/>
         <a href="list.xhtml">Volver</a>
         <br/>
         <br/>
-        <b:navBar brand="CRUD JSF" brandHref="#" fixed="top" inverse="true">
+        <b:navBar brand="CRUD JSF" id="header" brandHref="#" fixed="top" inverse="true">
             <b:navbarLinks>
-                <b:navLink value="Usuario" href="#" active="true"></b:navLink>
-                <b:navLink value="Ciudad" href="#"></b:navLink>
+                <b:navLink value="Home" iconAwesome="home" href="../home.xhtml"></b:navLink>
+                <b:navLink value="Usuario" active="true"></b:navLink>
+                <b:navLink value="Rol" href="../rol/list.xhtml" ></b:navLink>
+                <b:navLink value="Pais" href="../pais/list.xhtml"></b:navLink>
+                <b:navLink value="Ciudad" href="../ciudad/list.xhtml"></b:navLink>
+                <b:dropMenu value="Welcome Usuario" class="align-right">
+                    <b:navLink value="Cambiar Clave" href="#"></b:navLink>
 
+                    <b:navLink></b:navLink>
+
+                    <b:navLink value="Cerrar Sesion" href="#"></b:navLink>
+                </b:dropMenu>
             </b:navbarLinks>
         </b:navBar>
         <b:container fluid="true">
             <b:row >
-                <b:panel title="Editar Usuario" look="default" collapsed="false">
+                <b:panel title="Editar Usuario" look="default" >
                     <h:form>
-                        <h:outputLabel value="Nombre"/>
-                        <b:inputText placeholder="Nombre" value="#{usuarioBean.selectedUser.nombre}"/>
-                        <h:outputLabel value="1 er Apellido"/>
-                        <b:inputText placeholder="1er Apellido" value="#{usuarioBean.selectedUser.apepat}"/> 
-                        <h:outputLabel value="2 do Apellido"/>
-                        <b:inputText placeholder="2do Apellido" value="#{usuarioBean.selectedUser.apemat}"/>
+                        <b:tabView activeIndex="0">
+                            <b:tab title="Datos Generales">
+                                <h:outputLabel value="Nombre"/>
+                                <b:inputText placeholder="Nombre" value="#{usuarioBean.editUser.nombre}"/>
+                                <h:outputLabel value="1 er Apellido"/>
+                                <b:inputText placeholder="1er Apellido" value="#{usuarioBean.editUser.apepat}"/> 
+                                <h:outputLabel value="2 do Apellido"/>
+                                <b:inputText placeholder="2do Apellido" value="#{usuarioBean.editUser.apemat}"/>
+                                <h:outputLabel value="Fecha Nacimiento"/>
+                                <b:datepicker  placeholder="Fecha Nacimiento" value="#{usuarioBean.editUser.fec_nac}" lang="es"  changeYear="true" changeMonth="true" showButtonPanel="true">
+                                  
+                                </b:datepicker>
+                                <h:outputLabel value="Estado"/>
+                                <b:inputText placeholder="Estado" value="#{usuarioBean.editUser.estado}"/>
+                            </b:tab>
+                            <b:tab title="Datos Seguridad y Ubicaion">
+                                <h:outputLabel value="Username"/>
+                                <b:inputText placeholder="username" value="#{usuarioBean.editUser.username}"/>
+                                <h:outputLabel value="Password"/>
+                                <b:inputText placeholder="Password" value="#{usuarioBean.editUser.password}"/>
+                                <h:outputLabel value="Ciudad"/>
+                                <b:selectOneMenu value="#{usuarioBean.editUser.ciudad.id}" id="ciudad">
+                                    <f:selectItems value="#{ciudadBean.listCiudades}" var="ciudad" itemValue="#{ciudad.id}"
+                                                   itemLabel="#{ciudad.nombre}" />
+                                </b:selectOneMenu>
+                                <h:outputLabel value="Rol"/>
+                                <b:selectOneMenu value="#{usuarioBean.editUser.rol.id}" id="rol">
+                                    <f:selectItems value="#{rolBean.listRols}" var="rol" itemValue="#{rol.id}"
+                                                   itemLabel="#{rol.nombre}" />
+                                </b:selectOneMenu>
+                            </b:tab>
+                        </b:tabView>
                         <h:panelGrid columns="2" cellpadding="10">
-                            <b:commandButton value="Guardar" look="primary" actionListener="#{usuarioBean.edit(usuarioBean.selectedUser)}"/>
+                            <b:commandButton value="Guardar" look="primary" actionListener="#{usuarioBean.edit(usuarioBean.editUser)}"/>
                             <b:commandButton value="Cancelar" look="danger" actionListener="#"/>
                         </h:panelGrid>
                     </h:form>
                 </b:panel>
             </b:row>
         </b:container>
+        <div id="j_idt151" class="null navbar navbar-default navbar-fixed-bottom" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#j_idt151_inner">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><span id="footer">©2016 Ricardo Toledo Barria</span>
+                    </a></div>
+                <div id="j_idt151_inner" class="collapse navbar-collapse navbar-ex1-collapse">
+                    <p class="navbar-text pull-right">
+                        Crud bootfaces, jsf y jpa
+                    </p>
+                </div>
+            </div>
+        </div>
     </h:body>
 </html>

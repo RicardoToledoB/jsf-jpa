@@ -6,7 +6,7 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>BootsFaces CRUD JSF</title>
-        <style>
+         <style>
             .navbar-brand span {
                 color: #fff;
             }
@@ -28,26 +28,25 @@
             .navbar .dropdown.open > a{
                 background-color: #2B4662 !important;
             }
-            
-            #footer {
+             #footer {
                 color:rgb(119, 119, 119) !important;
             }
-
         </style>
     </h:head>
     <h:body  style="padding: 60px;">
-        <b:navBar brand="CRUD JSF" id="header" brandHref="#" fixed="top" inverse="true" >
-            <b:navbarLinks >
-                <b:navLink value="Home" iconAwesome="home" href="" active="true"></b:navLink>
-                <b:navLink value="Usuario" href="usuario/list.xhtml" ></b:navLink>
-                <b:navLink value="Rol" href="rol/list.xhtml"></b:navLink>
+        <br/>
+        Volver
+        <br/>
+        <br/>
+        <b:navBar brand="CRUD JSF" id="header" brandHref="#" fixed="top" inverse="true">
+            <b:navbarLinks>
+                <b:navLink value="Home" iconAwesome="home" href="../home.xhtml"></b:navLink>
+                <b:navLink value="Usuario" href="../usuario/list.xhtml"></b:navLink>
+                <b:navLink value="Rol" href="#" active="true"></b:navLink>
                 <b:navLink value="Pais" href="../pais/list.xhtml"></b:navLink>
-                <b:navLink value="Ciudad" href="ciudad/list.xhtml" ></b:navLink>
-                
-
-                
-                <b:dropMenu value="Welcome Usuario" class="align-right" >
-                    <b:navLink value="Cambiar Clave" href="#" ></b:navLink>
+                <b:navLink value="Ciudad" href="../ciudad/list.xhtml"></b:navLink>
+                <b:dropMenu value="Welcome Usuario" class="align-right">
+                    <b:navLink value="Cambiar Clave" href="#"></b:navLink>
 
                     <b:navLink></b:navLink>
 
@@ -55,17 +54,40 @@
                 </b:dropMenu>
             </b:navbarLinks>
         </b:navBar>
-        <b:container>
-
-            MODULOS DE ADMINSITRADOR<br/>
-
+        <b:container fluid="true">
+            <b:row>
+                <h:form>
+                    <b:commandButton value="Nuevo Rol" look="primary" action="add.xhtml?faces-redirect=true" />
+                </h:form>
+            </b:row>
             <br/>
-
-            <a href="usuario/list.xhtml">Modulo Usuario</a><br/>
-            <a href="rol/list.xhtml">Modulo Rol</a><br/>
-            <a href="pais/list.xhtml">Modulo Pais</a><br/>
-            <a href="ciudad/list.xhtml">Modulo Ciudades</a>
-
+            <b:row >
+                <b:panel title="Listado Roles" look="default" collapsed="false">
+                    <b:dataTable value="#{rolBean.listRols}" var="roles">
+                        <h:column>    				
+                            <f:facet name="header">ID</f:facet>    				
+                                #{roles.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">NOMBRE</f:facet>
+                                #{roles.nombre}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">ESTADO</f:facet>
+                                #{roles.estado}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">ACCIONES</f:facet>
+                            <h:form>
+                                
+                                <b:commandButton value="" size="mini" iconAwesome="trash-o" look="danger"  action="#{rolBean.delete(roles)}" /> |
+                                <b:commandButton value="" iconAwesome="edit" look="primary"  action="#{rolBean.setEditRol(roles)}"  /> |
+                                <b:commandButton value="" iconAwesome="eye" look="success"  action="#{rolBean.setViewRol(roles)}"  />
+                            </h:form>
+                        </h:column>
+                    </b:dataTable>
+                </b:panel>
+            </b:row>
         </b:container>
         <div id="j_idt151" class="null navbar navbar-default navbar-fixed-bottom" role="navigation">
             <div class="container">
